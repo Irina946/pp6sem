@@ -1,0 +1,64 @@
+.settingsParameters {
+    min-height: 600px;
+    padding: 65px 0 50px 100px;
+    width: 60%;
+}
+
+.oneTheme {
+    background-image: url(../../../img/Frame.png);
+    background-repeat: no-repeat;
+    background-position: 0px -2px;
+    padding-left: 54px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.parameters {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.countInput {
+    width: 118px;
+    height: 38px;
+    border: 1px solid #14245E;
+    border-radius: 3px;
+    padding-left: 16px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.nameThemeInput {
+    border: 1px solid #14245E;
+    border-radius: 3px;
+    padding: 7px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.hidden {
+    display: none;
+}
+
+.buttonContainer {
+    position: relative;
+    width: calc(75% + 15px);
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10vw;
+    margin-top: 2vh;
+}

@@ -1,10 +1,19 @@
-import React from 'react';
 import './App.css';
-import Button from './components/button/button';
+import Main from './pages/main/main';
+import Create from './pages/create/create';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Viewing from './pages/viewing/viewing';
 
-function App() {
+function App(): JSX.Element {
   return (
-    <Button title='hi' size='big' />
+    <BrowserRouter >
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='create' element={<Create />} />
+        <Route path='viewing' element={<Viewing />} />
+        <Route path='create/viewing' element={<Viewing />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
