@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Main from './pages/main/main';
+import Create from './pages/create/create';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Viewing from './pages/viewing/viewing';
 
-function App() {
+function App(): JSX.Element {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter >
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='create' element={<Create />} />
+        <Route path='viewing' element={<Viewing />} />
+        <Route path='create/viewing' element={<Viewing />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
