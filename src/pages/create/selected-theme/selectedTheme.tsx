@@ -11,9 +11,14 @@ export function SelectedTheme(props: SelectedThemeProps): JSX.Element {
   const [objectTheme, setObjectTheme] = useState(props.objectTheme);
 
   const toogleThemeVisible = (idx: number): void => {
-    const checkChange = { ...objectTheme };
-    checkChange.subtopic[idx].isVisible = !checkChange.subtopic[idx].isVisible;
-    setObjectTheme(checkChange);
+    const newSubtopics = objectTheme.subtopic.map((theme, index) => {
+      if (index === idx) {
+        return { ...theme, isVisible: !theme.isVisible };
+      }
+      return theme;
+    });
+
+    setObjectTheme({ ...objectTheme, subtopic: newSubtopics });
   };
 
   useEffect(() => {
@@ -25,7 +30,7 @@ export function SelectedTheme(props: SelectedThemeProps): JSX.Element {
       <div className={styles.selectedTheme}>
         {objectTheme.subtopic.map((topic, idx) => (
           <div
-            key={idx}
+            key={topic.id}
           >
             <input
               id={`${idx}`}

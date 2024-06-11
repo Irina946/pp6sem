@@ -3,6 +3,7 @@ import { type DataOneMatrix, type DataOneVectors } from './printTasks';
 // import { type DataOneVectors, type DataOne } from './viewing';
 
 interface printTaskProps {
+  topic: string
   number: number
   condition: string
   task?: JSX.Element
@@ -10,10 +11,18 @@ interface printTaskProps {
 }
 
 export function PrintTask(props: printTaskProps): JSX.Element {
+  const condition = props.condition
+  const newCondition = condition
+    .replace('\\( \\vec{c} \\)', 'C')
+    .replace('\\( \\vec{b} \\)', 'B')
+    .replace('\\( \\vec{a} \\)', 'A')
+    .replace('\\( \\sqrt{', '√')
+    .replace('} \\)', '');
   return (
     <div>
       <p className={styles.questionNumber}>Вопрос {props.number}</p>
-      <span dangerouslySetInnerHTML={{ __html: props.condition }} className={styles.condition} />
+      <p className={styles.topic}>Тема: {props.topic}</p>
+      <p className={styles.condition}>{newCondition}</p>
       {props.task !== undefined ? <div className={styles.task}>{props.task}</div> : <></>}
       <div className={styles.answer}>Ответ: {props.answer}</div>
     </div>

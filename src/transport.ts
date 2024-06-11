@@ -1,6 +1,7 @@
 import { type SubtopicTheme } from './pages/create/selected-module/SelectedModule';
 
 export function getSendTaskRequestModel(check: SubtopicTheme): string {
+  console.log(check.subtopic)
   const requestModel = check.subtopic
     .filter(element => element.isVisible)
     .map(element => ({
@@ -8,6 +9,7 @@ export function getSendTaskRequestModel(check: SubtopicTheme): string {
       count: +element.count,
       topic: element.nameTopic
     }));
+  console.log(requestModel)
   return JSON.stringify(requestModel);
 }
 
@@ -28,6 +30,7 @@ export interface TasksScheme {
   data: any
   answer: any
   moodle_task: string
+  uuid: string
 }
 
 export type dictType = Record<string, number>;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './settingsParameters.module.css';
 import Button from '../../../components/button/button';
 import { Link } from 'react-router-dom';
@@ -18,21 +18,22 @@ export interface subtopicParmeters {
 
 export function SettingsParameters(props: settingsParametersProps): JSX.Element {
   const themes = props.selectedTheme;
+  const [check, setCheck] = useState<SubtopicTheme>(themes);
 
-  const [check, setCheck] = useState(themes);
-
-  const handleChangeCount = (idx: number, count: number): void => {
+  const handleChangeCount = (idx: number, count: number, visible: boolean): void => {
     const checkChange = { ...check };
     if (count <= 1) {
       count = 1;
     }
     checkChange.subtopic[idx].count = Number(count);
+    checkChange.subtopic[idx].isVisible = visible;
     setCheck(checkChange);
   };
 
-  const handleChangeTheme = (idx: number, theme: string): void => {
+  const handleChangeTheme = (idx: number, theme: string, visible: boolean): void => {
     const checkChange = { ...check };
     checkChange.subtopic[idx].nameTopic = theme;
+    checkChange.subtopic[idx].isVisible = visible;
     setCheck(checkChange);
   };
 
@@ -46,9 +47,28 @@ export function SettingsParameters(props: settingsParametersProps): JSX.Element 
   }
   );
   const handleButtonGeneratingClick = (): void => {
-    setGenetating(true);
+    themes.subtopic.map((topic, idx) => check.subtopic[idx].isVisible = topic.isVisible)
     setDataTasks(sendTask(check));
   };
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleWheel = (event: React.WheelEvent<HTMLInputElement>) => {
+    if (document.activeElement === inputRef.current) {
+      event.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    if (dataTasks) {
+      dataTasks.then((result) => {
+        setPromiseResult(result);
+        setGenetating(true); // вызываем setGenerating только после получения ответа от сервера
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  }, [dataTasks]);
 
   const handleButtonDownloadClick = (data: string): void => {
     const blob = new Blob([data], { type: 'application/json' });
@@ -80,13 +100,13 @@ export function SettingsParameters(props: settingsParametersProps): JSX.Element 
             >
               {parametersContainer.nameTopic}
               <div className={styles.parameters}>
-                Введите название темы
+                Введите название темы задачи
               </div>
               <input
                 className={styles.nameThemeInput}
                 type="string"
-                value={parametersContainer.nameTopic}
-                onChange={(e) => { handleChangeTheme(idx, e.target.value); }}
+                placeholder={parametersContainer.nameTopic}
+                onChange={(e) => { handleChangeTheme(idx, e.target.value, parametersContainer.isVisible); }}
               />
               <div className={styles.parameters}>
                 Введите количество задач
@@ -94,8 +114,11 @@ export function SettingsParameters(props: settingsParametersProps): JSX.Element 
               <input
                 className={styles.countInput}
                 type="number"
-                value={parametersContainer.count}
-                onChange={(e) => { handleChangeCount(idx, Number(e.target.value)); }}
+                ref={inputRef}
+                required
+                min={1}
+                onChange={(e) => { handleChangeCount(idx, Number(e.target.value), parametersContainer.isVisible); }}
+                onWheel={handleWheel}
               />
             </div>
         )
@@ -112,21 +135,21 @@ export function SettingsParameters(props: settingsParametersProps): JSX.Element 
         <Link
           to='viewing'
           className={generating ? '' : styles.hidden}
-          state={ promiseResult }
+          state={promiseResult}
         >
+          <Button
+            title='Перейти к просмотру'
+            typeButton='orange'
+            size='big'
+          />
+        </Link>
         <Button
-          title='Перейти к просмотру'
-          typeButton='orange'
           size='big'
+          title='Скачать файл'
+          disabled={!generating}
+          click={() => { handleButtonDownloadClick(getSendTaskRequestModel(check)); }}
         />
-      </Link>
-      <Button
-        size='big'
-        title='Скачать файл'
-        disabled={!generating}
-        click={() => { handleButtonDownloadClick(getSendTaskRequestModel(check)); }}
-      />
-    </div>
+      </div>
     </div >
   );
 }

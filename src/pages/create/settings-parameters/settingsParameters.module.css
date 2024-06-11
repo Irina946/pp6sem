@@ -1,7 +1,8 @@
 .settingsParameters {
     min-height: 600px;
-    padding: 65px 0 50px 100px;
+    padding: 85px 0 50px 100px;
     width: 60%;
+    position: relative;
 }
 
 .oneTheme {
@@ -12,6 +13,8 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 25px;
+    margin-top: -20px;
+    margin-bottom: 50px;
 }
 
 .parameters {
@@ -29,17 +32,19 @@
     border-radius: 3px;
     padding-left: 16px;
     font-size: 16px;
+    font-family: "Monsterrat";
     font-weight: 400;
-    margin-bottom: 20px;
 }
 
 .nameThemeInput {
     border: 1px solid #14245E;
     border-radius: 3px;
     padding: 7px;
+    font-family: "Monsterrat";
     font-size: 16px;
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    width: max-content;
 }
 
 input::-webkit-outer-spin-button,
@@ -55,10 +60,15 @@ input::-webkit-inner-spin-button {
 }
 
 .buttonContainer {
-    position: relative;
-    width: calc(75% + 15px);
+    position: absolute;
+    /* min-width: 410px; */
+    width: 68%;
     display: flex;
     justify-content: space-between;
-    margin-left: 10vw;
-    margin-top: 2vh;
+    gap: 15px;
+    margin-top: 25px;
+    bottom: 20px;
+    right: 40px; 
+    left: 35%;
+    /* margin-right: 40px; */
 }
