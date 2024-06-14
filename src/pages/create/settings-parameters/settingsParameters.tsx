@@ -47,20 +47,24 @@ export function SettingsParameters(props: settingsParametersProps): JSX.Element 
   }
   );
   const handleButtonGeneratingClick = (): void => {
-    themes.subtopic.map((topic, idx) => check.subtopic[idx].isVisible = topic.isVisible)
+    themes.subtopic.map((topic: {
+      nameTopic: string
+      id: string
+      isVisible: boolean
+      count: number
+    }, idx: number): boolean => (check.subtopic[idx].isVisible = topic.isVisible));
     setDataTasks(sendTask(check));
   };
-
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleWheel = (event: React.WheelEvent<HTMLInputElement>) => {
+  const handleWheel = (event: React.WheelEvent<HTMLInputElement>): void => {
     if (document.activeElement === inputRef.current) {
       event.preventDefault();
     }
   };
 
   useEffect(() => {
-    if (dataTasks) {
+    if (dataTasks !== undefined) {
       dataTasks.then((result) => {
         setPromiseResult(result);
         setGenetating(true); // вызываем setGenerating только после получения ответа от сервера

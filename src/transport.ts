@@ -1,7 +1,6 @@
 import { type SubtopicTheme } from './pages/create/selected-module/SelectedModule';
 
 export function getSendTaskRequestModel(check: SubtopicTheme): string {
-  console.log(check.subtopic)
   const requestModel = check.subtopic
     .filter(element => element.isVisible)
     .map(element => ({
