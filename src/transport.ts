@@ -11,8 +11,10 @@ export function getSendTaskRequestModel(check: SubtopicTheme): string {
   return JSON.stringify(requestModel);
 }
 
+const URL = 'https://math-generator-jqum.onrender.com';
+
 export async function sendTask(data: SubtopicTheme): Promise<Response> {
-  const response = await fetch('https://math-generator-jqum.onrender.com/get_tasks', {
+  const response = await fetch(`${URL}/get_tasks`, {
     method: 'POST',
     body: getSendTaskRequestModel(data),
     headers: {
@@ -57,7 +59,7 @@ export function getSendTasksXML(data: TasksScheme[]): string {
 }
 
 export async function getTasksXML(data: TasksScheme[]): Promise<Blob> {
-  const response = await fetch('https://math-generator-jqum.onrender.com/get_convert', {
+  const response = await fetch(`${URL}/get_convert`, {
     method: 'POST',
     body: getSendTasksXML(data),
     headers: {
@@ -68,7 +70,7 @@ export async function getTasksXML(data: TasksScheme[]): Promise<Blob> {
 }
 
 export async function sendImportTasks(data: string): Promise<Response> {
-  const response = await fetch('https://math-generator-jqum.onrender.com/get_tasks', {
+  const response = await fetch(`${URL}/get_tasks`, {
     method: 'POST',
     body: data,
     headers: {
