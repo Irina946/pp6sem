@@ -9,7 +9,6 @@ export function getSendTaskRequestModel(check: SubtopicTheme): string {
       count: +element.count,
       topic: element.nameTopic
     }));
-  console.log(requestModel)
   return JSON.stringify(requestModel);
 }
 

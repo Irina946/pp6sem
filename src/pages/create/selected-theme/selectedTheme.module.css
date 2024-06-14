@@ -1,3 +1,7 @@
+.allCreate {
+    min-height: 100%;
+}
+
 .selectedTheme {
     background-color: #14245E;
     padding-top: 50px;
